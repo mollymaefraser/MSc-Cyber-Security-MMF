@@ -1,12 +1,12 @@
-Based on the frameworks discussed in the literature (specifically the resilience-driven framework by **Adhillah et al. (2025)** and the Business Continuity/Disaster Recovery (BCDR) strategies outlined by **Kirvan (2025)**), the following is a summary of applicable frameworks and recommendations for three distinct organisational contexts.
+Based on the frameworks discussed in the literature (specifically the resilience-driven framework by Adhillah et al. (2025) and the Business Continuity/Disaster Recovery (BCDR) strategies outlined by Kirvan (2025)), the following is a summary of applicable frameworks and recommendations for three distinct organisational contexts.
 
 ### **1. Applicable Frameworks by Organisation**
 
 | Organisation | Recommended Framework(s) | Rationale |
 | --- | --- | --- |
-| **International Bank** | **NIST CSF 2.0 & FFIEC** | Banks require high-level compliance and robust risk management. The FFIEC (Federal Financial Institutions Examination Council) framework is industry-standard for financial stability, while NIST CSF 2.0 provides the "Identify, Protect, Detect, Respond, Recover" lifecycle essential for digital transactions. |
-| **Large Hospital** | **ISO 27001 & NIST 800-34** | Hospitals manage sensitive life-critical data. ISO 27001 provides a globally recognised Information Security Management System (ISMS), while NIST 800-34 focuses on contingency planning for IT systems that support patient care. |
-| **Large Food Factory** | **IEC 62443 & Adhillah et al. Resilience Framework** | Food manufacturing relies on Operational Technology (OT). IEC 62443 focuses on Industrial Control Systems (ICS) security. The Adhillah et al. (2025) framework is vital here for its emphasis on "predictive" and "preemptive" capabilities to prevent physical production halts. |
+| **International Bank** | NIST CSF 2.0 & FFIEC | Banks require high-level compliance and robust risk management. The FFIEC (Federal Financial Institutions Examination Council) framework is industry-standard for financial stability, while NIST CSF 2.0 provides the "Identify, Protect, Detect, Respond, Recover" lifecycle essential for digital transactions. |
+| **Large Hospital** | ISO 27001 & NIST 800-34 | Hospitals manage sensitive life-critical data. ISO 27001 provides a globally recognised Information Security Management System (ISMS), while NIST 800-34 focuses on contingency planning for IT systems that support patient care. |
+| **Large Food Factory** | IEC 62443 & Adhillah et al. Resilience Framework | Food manufacturing relies on Operational Technology (OT). IEC 62443 focuses on Industrial Control Systems (ICS) security. The Adhillah et al. (2025) framework is vital here for its emphasis on "predictive" and "preemptive" capabilities to prevent physical production halts. |
 
 
 ### **2. Tests and Recommendations**
