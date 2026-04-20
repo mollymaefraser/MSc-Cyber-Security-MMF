@@ -49,5 +49,5 @@ My objective is to develop a broader security understanding from the perspective
 
 * **University:** University of Essex Online (Kaplan Open Learning)
 * **LinkedIn:** https://www.linkedin.com/in/molly-mae-fraser/
-* **Certifications:** TBA
+* **Certifications:** TBA.
 
