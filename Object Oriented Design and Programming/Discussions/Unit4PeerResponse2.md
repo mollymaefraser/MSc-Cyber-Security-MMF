@@ -1,0 +1,9 @@
+The Smart Home framing is a great choice for these three patterns. IoT is one of the more natural real-world fits for structural patterns, since you're constantly bridging inconsistent hardware behind unified control surfaces.
+
+On the Adapter: I like that you kept the legacy string format entirely inside `ThermostatAdapter` rather than exposing it anywhere else. One thing I noticed is that `adjust_temp()` takes a raw string built with an implicit format (`"TEMP:24"`), which the adapter has to know how to construct correctly, so if the legacy system had several command types (temp, mode, fan speed), would you keep that formatting logic inline in `set_temperature()` like this, or extract it into a small private helper as the adapter grows? 
+
+Your Bridge example is a nice illustration of how the pattern scales on the implementation side too. `PhilipsHueAPI` could sit alongside a `SamsungAPI` without touching `VoiceAssistant` at all. I'd be curious how you'd handle a `MobileApp` controller needing to call something a `VoiceAssistant` doesn't (say, a `dim(level)` method). Does that live on `Controller` itself and just go unused by simpler controllers, or would you split it out the way we discussed for a Smart TV in the Bridge follow-up on Kaona's thread?
+
+The Composite example is clean, and turning on a whole `Room` with one call is exactly the use case this pattern is built for. Nesting rooms inside rooms (e.g. "Ground Floor" containing "Living Room" and "Kitchen") would presumably work immediately with no extra code, given `Room` is itself a `SmartComponent`. Did you test that, or is it something you're planning to build out further?
+
+Good use of citations too, by the way! Grounding the Bridge/Composite explanations in Gamma et al. and Lott & Phillips gives this more weight than most of our examples.
