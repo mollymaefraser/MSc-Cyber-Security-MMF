@@ -158,7 +158,7 @@ The tests in Appendix D check two different things side by side: that SignupServ
 
 AI assisted tools can help with testing in a few concrete ways: suggesting test cases for behaviour that has not yet been covered, proposing edge cases a developer might not think to try, and flagging code paths that look under tested for regression purposes.
 
-Three such suggestions were used in Appendix E of this exercise: a very long password, a password containing non ASCII characters, and an empty IP address string being checked against the rate limiter. Each was reviewed before being added. A fourth suggestion, fuzzing the password argument with random byte sequences, was tried and then deliberately left out, since SignupService only ever receives a Python string from the form layer in this system, so that scenario cannot actually occur here and testing it would not check anything real.
+Three such suggestions were used in Appendix E of this exercise: a very long password, a password containing non ASCII characters, and an empty IP address string being checked against the rate limiter. Each was reviewed before being added. A further suggestion, fuzzing the password argument with random byte sequences, was considered and not added, since SignupService only ever receives a Python string from the form layer in this system, so that scenario cannot actually occur here and testing it would not check anything real.
 
 This is the central point to take from this section: an AI suggested test case is a starting point, not a finished one. Three things stay firmly the responsibility of the developer, whatever tool proposed the test:
 
@@ -618,8 +618,8 @@ from signup_system import (
 
 class AISuggestedEdgeCaseTests(unittest.TestCase):
     """
-    Three of four AI suggested edge cases, kept after review. The fourth,
-    fuzzing the password with random byte sequences, was tried and discarded:
+    Three AI suggested edge cases, kept after review. A fourth idea,
+    fuzzing the password with random byte sequences, was considered and not added:
     SignupService only ever receives a Python str from the form layer in
     this system, so that case cannot occur here and testing it would not
     check anything real.
