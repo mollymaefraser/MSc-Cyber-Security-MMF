@@ -1,0 +1,21 @@
+test_change_password_returns_200_and_revokes_the_session (tests.test_controller.ControllerTests.test_change_password_returns_200_and_revokes_the_session) ... ok
+test_full_course_and_duplicate_enrolment_return_409 (tests.test_controller.ControllerTests.test_full_course_and_duplicate_enrolment_return_409) ... ok
+test_full_learning_journey (tests.test_controller.ControllerTests.test_full_learning_journey) ... ok
+test_invalid_course_data_returns_400 (tests.test_controller.ControllerTests.test_invalid_course_data_returns_400) ... ok
+test_invalid_course_id_types_return_400_not_a_crash (tests.test_controller.ControllerTests.test_invalid_course_id_types_return_400_not_a_crash) ... ok
+test_login_failure_returns_a_generic_401 (tests.test_controller.ControllerTests.test_login_failure_returns_a_generic_401) ... ok
+test_login_success_returns_a_token (tests.test_controller.ControllerTests.test_login_success_returns_a_token) ... ok
+test_logout_invalidates_the_token (tests.test_controller.ControllerTests.test_logout_invalidates_the_token) ... ok
+test_register_duplicate_returns_409 (tests.test_controller.ControllerTests.test_register_duplicate_returns_409) ... ok
+test_register_returns_201_and_never_exposes_the_password_hash (tests.test_controller.ControllerTests.test_register_returns_201_and_never_exposes_the_password_hash) ... ok
+test_register_weak_password_returns_400_with_the_rules_listed (tests.test_controller.ControllerTests.test_register_weak_password_returns_400_with_the_rules_listed) ... ok
+test_repeated_failures_return_429 (tests.test_controller.ControllerTests.test_repeated_failures_return_429) ... ok
+test_unauthenticated_requests_return_401 (tests.test_controller.ControllerTests.test_unauthenticated_requests_return_401) ... ok
+test_unexpected_errors_return_a_generic_500_without_leaking_details (tests.test_controller.ControllerTests.test_unexpected_errors_return_a_generic_500_without_leaking_details) ... ok
+test_unknown_course_returns_404 (tests.test_controller.ControllerTests.test_unknown_course_returns_404) ... ok
+test_wrong_role_returns_403 (tests.test_controller.ControllerTests.test_wrong_role_returns_403) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.284s
+
+OK

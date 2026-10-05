@@ -1,0 +1,50 @@
+test_allowed_role_passes (tests.test_security.RequireRoleTests.test_allowed_role_passes) ... ok
+test_denial_message_does_not_reveal_which_roles_would_work (tests.test_security.RequireRoleTests.test_denial_message_does_not_reveal_which_roles_would_work) ... ok
+test_other_role_is_denied (tests.test_security.RequireRoleTests.test_other_role_is_denied) ... ok
+test_admin_can_create_a_course (tests.test_courses.CreateCourseTests.test_admin_can_create_a_course) ... ok
+test_creation_is_audited (tests.test_courses.CreateCourseTests.test_creation_is_audited) ... ok
+test_instructor_creates_an_unpublished_course (tests.test_courses.CreateCourseTests.test_instructor_creates_an_unpublished_course) ... ok
+test_invalid_capacities_are_rejected (tests.test_courses.CreateCourseTests.test_invalid_capacities_are_rejected) ... ok
+test_invalid_description_is_rejected (tests.test_courses.CreateCourseTests.test_invalid_description_is_rejected) ... ok
+test_invalid_titles_are_rejected (tests.test_courses.CreateCourseTests.test_invalid_titles_are_rejected) ... ok
+test_student_cannot_create_a_course (tests.test_courses.CreateCourseTests.test_student_cannot_create_a_course) ... ok
+test_title_is_trimmed (tests.test_courses.CreateCourseTests.test_title_is_trimmed) ... ok
+test_invalid_search_term_is_rejected (tests.test_courses.ListAndSearchTests.test_invalid_search_term_is_rejected) ... ok
+test_list_published_excludes_drafts_and_is_sorted_by_title (tests.test_courses.ListAndSearchTests.test_list_published_excludes_drafts_and_is_sorted_by_title) ... ok
+test_percent_and_underscore_are_treated_literally (tests.test_courses.ListAndSearchTests.test_percent_and_underscore_are_treated_literally) ... ok
+test_search_is_case_insensitive_substring_match (tests.test_courses.ListAndSearchTests.test_search_is_case_insensitive_substring_match) ... ok
+test_search_never_returns_drafts (tests.test_courses.ListAndSearchTests.test_search_never_returns_drafts) ... ok
+test_sql_injection_in_search_returns_nothing_and_tables_survive (tests.test_courses.ListAndSearchTests.test_sql_injection_in_search_returns_nothing_and_tables_survive) ... ok
+test_admin_can_publish_any_course (tests.test_courses.PublishAndViewTests.test_admin_can_publish_any_course) ... ok
+test_another_instructor_cannot_publish_it (tests.test_courses.PublishAndViewTests.test_another_instructor_cannot_publish_it) ... ok
+test_owner_can_publish (tests.test_courses.PublishAndViewTests.test_owner_can_publish) ... ok
+test_published_course_is_visible_to_students (tests.test_courses.PublishAndViewTests.test_published_course_is_visible_to_students) ... ok
+test_publishing_an_unknown_course_raises_not_found (tests.test_courses.PublishAndViewTests.test_publishing_an_unknown_course_raises_not_found) ... ok
+test_student_cannot_publish (tests.test_courses.PublishAndViewTests.test_student_cannot_publish) ... ok
+test_unknown_course_raises_not_found_for_everyone (tests.test_courses.PublishAndViewTests.test_unknown_course_raises_not_found_for_everyone) ... ok
+test_unpublished_course_is_hidden_from_students_and_other_instructors (tests.test_courses.PublishAndViewTests.test_unpublished_course_is_hidden_from_students_and_other_instructors) ... ok
+test_unpublished_course_is_visible_to_owner_and_admin (tests.test_courses.PublishAndViewTests.test_unpublished_course_is_visible_to_owner_and_admin) ... ok
+test_one_student_enrolling_ten_times_at_once_is_enrolled_once (tests.test_enrolment.ConcurrencyTests.test_one_student_enrolling_ten_times_at_once_is_enrolled_once) ... ok
+test_ten_students_racing_for_the_last_seat_yield_exactly_one_winner (tests.test_enrolment.ConcurrencyTests.test_ten_students_racing_for_the_last_seat_yield_exactly_one_winner) ... ok
+test_non_students_are_denied (tests.test_enrolment.CoursesForStudentTests.test_non_students_are_denied) ... ok
+test_returns_only_the_students_own_courses_sorted_by_title (tests.test_enrolment.CoursesForStudentTests.test_returns_only_the_students_own_courses_sorted_by_title) ... ok
+test_a_place_is_freed_when_a_student_unenrols (tests.test_enrolment.EnrolTests.test_a_place_is_freed_when_a_student_unenrols) ... ok
+test_cannot_enrol_in_an_unknown_course (tests.test_enrolment.EnrolTests.test_cannot_enrol_in_an_unknown_course) ... ok
+test_cannot_enrol_in_an_unpublished_course (tests.test_enrolment.EnrolTests.test_cannot_enrol_in_an_unpublished_course) ... ok
+test_enrolling_twice_is_rejected (tests.test_enrolment.EnrolTests.test_enrolling_twice_is_rejected) ... ok
+test_enrolment_is_audited (tests.test_enrolment.EnrolTests.test_enrolment_is_audited) ... ok
+test_full_course_rejects_further_students (tests.test_enrolment.EnrolTests.test_full_course_rejects_further_students) ... ok
+test_instructors_and_admins_cannot_enrol (tests.test_enrolment.EnrolTests.test_instructors_and_admins_cannot_enrol) ... ok
+test_student_can_enrol_in_a_published_course (tests.test_enrolment.EnrolTests.test_student_can_enrol_in_a_published_course) ... ok
+test_admin_sees_the_roster (tests.test_enrolment.RosterTests.test_admin_sees_the_roster) ... ok
+test_other_instructors_and_students_are_denied (tests.test_enrolment.RosterTests.test_other_instructors_and_students_are_denied) ... ok
+test_owner_sees_the_roster_sorted_by_email (tests.test_enrolment.RosterTests.test_owner_sees_the_roster_sorted_by_email) ... ok
+test_unknown_course_raises_not_found (tests.test_enrolment.RosterTests.test_unknown_course_raises_not_found) ... ok
+test_non_students_cannot_unenrol (tests.test_enrolment.UnenrolTests.test_non_students_cannot_unenrol) ... ok
+test_unenrol_removes_the_enrolment (tests.test_enrolment.UnenrolTests.test_unenrol_removes_the_enrolment) ... ok
+test_unenrolling_when_not_enrolled_is_rejected (tests.test_enrolment.UnenrolTests.test_unenrolling_when_not_enrolled_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 45 tests in 0.649s
+
+OK

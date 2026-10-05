@@ -1,0 +1,6 @@
+     30   test_components
+     16   test_controller
+     23   test_courses
+     19   test_enrolment
+      3   test_security
+     46   test_users

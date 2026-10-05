@@ -1,0 +1,12 @@
+CAUGHT    Remove lockout check
+CAUGHT    Keep sessions after password change
+CAUGHT    Let anyone change roles
+CAUGHT    Sessions never expire
+SURVIVED  Skip dummy hash for unknown users (timing defence, not unit testable)
+CAUGHT    Off-by-one on capacity
+CAUGHT    Show drafts to everyone
+CAUGHT    Do not escape LIKE wildcards
+CAUGHT    Leak internal error text
+CAUGHT    Disable require_role
+
+9 caught, 1 survived

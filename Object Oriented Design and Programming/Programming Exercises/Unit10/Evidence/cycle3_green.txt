@@ -1,0 +1,40 @@
+test_audit_log_never_contains_passwords (tests.test_users.AuditTests.test_audit_log_never_contains_passwords) ... ok
+test_registration_and_failed_login_are_recorded (tests.test_users.AuditTests.test_registration_and_failed_login_are_recorded) ... ok
+test_forged_and_malformed_tokens_are_rejected (tests.test_users.AuthenticationTests.test_forged_and_malformed_tokens_are_rejected) ... ok
+test_login_is_case_insensitive_on_email (tests.test_users.AuthenticationTests.test_login_is_case_insensitive_on_email) ... ok
+test_login_returns_a_token_that_resolves_to_the_user (tests.test_users.AuthenticationTests.test_login_returns_a_token_that_resolves_to_the_user) ... ok
+test_logout_invalidates_the_token (tests.test_users.AuthenticationTests.test_logout_invalidates_the_token) ... ok
+test_non_string_credentials_are_rejected_cleanly (tests.test_users.AuthenticationTests.test_non_string_credentials_are_rejected_cleanly) ... ok
+test_session_expires_after_the_time_to_live (tests.test_users.AuthenticationTests.test_session_expires_after_the_time_to_live) ... ok
+test_session_is_still_valid_just_before_expiry (tests.test_users.AuthenticationTests.test_session_is_still_valid_just_before_expiry) ... ok
+test_session_tokens_are_not_stored_in_plain_text (tests.test_users.AuthenticationTests.test_session_tokens_are_not_stored_in_plain_text) ... ok
+test_tokens_are_unique_and_unguessably_long (tests.test_users.AuthenticationTests.test_tokens_are_unique_and_unguessably_long) ... ok
+test_unknown_user_gets_the_same_error_as_a_wrong_password (tests.test_users.AuthenticationTests.test_unknown_user_gets_the_same_error_as_a_wrong_password) ... ok
+test_wrong_password_is_rejected (tests.test_users.AuthenticationTests.test_wrong_password_is_rejected) ... ok
+test_changing_password_revokes_existing_sessions (tests.test_users.ChangePasswordTests.test_changing_password_revokes_existing_sessions) ... ok
+test_new_password_works_and_old_password_stops_working (tests.test_users.ChangePasswordTests.test_new_password_works_and_old_password_stops_working) ... ok
+test_weak_new_password_is_rejected_and_old_one_still_works (tests.test_users.ChangePasswordTests.test_weak_new_password_is_rejected_and_old_one_still_works) ... ok
+test_wrong_current_password_is_rejected (tests.test_users.ChangePasswordTests.test_wrong_current_password_is_rejected) ... ok
+test_client_is_locked_out_after_five_failures_even_with_the_right_password (tests.test_users.LoginThrottleTests.test_client_is_locked_out_after_five_failures_even_with_the_right_password) ... ok
+test_lockout_expires_after_the_window (tests.test_users.LoginThrottleTests.test_lockout_expires_after_the_window) ... ok
+test_lockout_is_scoped_to_the_client_not_global (tests.test_users.LoginThrottleTests.test_lockout_is_scoped_to_the_client_not_global) ... ok
+test_successful_login_resets_the_failure_count (tests.test_users.LoginThrottleTests.test_successful_login_resets_the_failure_count) ... ok
+test_duplicate_email_is_rejected_case_insensitively (tests.test_users.RegistrationTests.test_duplicate_email_is_rejected_case_insensitively) ... ok
+test_email_is_normalised_to_lower_case_and_trimmed (tests.test_users.RegistrationTests.test_email_is_normalised_to_lower_case_and_trimmed) ... ok
+test_invalid_emails_are_rejected (tests.test_users.RegistrationTests.test_invalid_emails_are_rejected) ... ok
+test_password_is_never_stored_in_plain_text (tests.test_users.RegistrationTests.test_password_is_never_stored_in_plain_text) ... ok
+test_register_returns_a_student_with_an_id (tests.test_users.RegistrationTests.test_register_returns_a_student_with_an_id) ... ok
+test_same_password_produces_different_hashes_because_of_salting (tests.test_users.RegistrationTests.test_same_password_produces_different_hashes_because_of_salting) ... ok
+test_sql_injection_in_email_is_rejected_and_tables_survive (tests.test_users.RegistrationTests.test_sql_injection_in_email_is_rejected_and_tables_survive) ... ok
+test_very_long_password_is_rejected_to_prevent_hashing_abuse (tests.test_users.RegistrationTests.test_very_long_password_is_rejected_to_prevent_hashing_abuse) ... ok
+test_weak_passwords_are_rejected (tests.test_users.RegistrationTests.test_weak_passwords_are_rejected) ... ok
+test_a_student_cannot_promote_themselves (tests.test_users.RoleManagementTests.test_a_student_cannot_promote_themselves) ... ok
+test_admin_can_promote_a_student_to_instructor (tests.test_users.RoleManagementTests.test_admin_can_promote_a_student_to_instructor) ... ok
+test_bootstrap_admin_creates_an_admin (tests.test_users.RoleManagementTests.test_bootstrap_admin_creates_an_admin) ... ok
+test_invalid_role_value_is_rejected (tests.test_users.RoleManagementTests.test_invalid_role_value_is_rejected) ... ok
+test_promoting_an_unknown_user_raises_not_found (tests.test_users.RoleManagementTests.test_promoting_an_unknown_user_raises_not_found) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 0.322s
+
+OK

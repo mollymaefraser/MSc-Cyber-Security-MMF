@@ -1,0 +1,18 @@
+E
+======================================================================
+ERROR: test_users (unittest.loader._FailedTest.test_users)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_users
+Traceback (most recent call last):
+  File "/usr/lib/python3.11/unittest/loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "tests/test_users.py", line 4, in <module>
+    from elearn.audit import AuditLog
+ModuleNotFoundError: No module named 'elearn.audit'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

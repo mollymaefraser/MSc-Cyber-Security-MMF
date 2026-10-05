@@ -782,7 +782,7 @@ The platform meets the brief: a justified layered architecture with a diagram, t
 
 ## Appendix: Project Files
 
-- code/users.py, courses.py, enrolment.py, controller.py, security.py, audit.py, database.py, errors.py
+- elearn/users.py, courses.py, enrolment.py, controller.py, security.py, audit.py, database.py, errors.py
 - tests/test_users.py, test_courses.py, test_enrolment.py, test_controller.py, test_components.py, test_security.py, helpers.py, world.py
 - demo.py and mutation_check.py
 - evidence/ holds the raw terminal output behind every figure
