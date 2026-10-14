@@ -2,7 +2,7 @@
 
 ### University of Essex Online
 
-Welcome to my academic e-portfolio. This repository serves as a centralized record of my progress, research, and technical implementations throughout the **MSc Cyber Security** program at the University of Essex Online.
+Welcome to my academic e-portfolio. This repository serves as a centralised record of my progress, research, and technical implementations throughout the **MSc Cyber Security** program at the University of Essex Online.
 
 The goal of this portfolio is to demonstrate a deep understanding of security frameworks, technical proficiency in defensive and offensive operations, and the ability to manage risk in complex digital environments.
 
@@ -10,7 +10,7 @@ The goal of this portfolio is to demonstrate a deep understanding of security fr
 
 ## 📂 Program Structure & Modules
 
-I have organized my work by module. Each directory contains reflective pieces, technical labs, and project reports.
+I have organised my work by module. Each directory contains reflective pieces, technical labs, and project reports.
 
 ### [01] PG Induction
 
@@ -25,7 +25,17 @@ I have organized my work by module. Each directory contains reflective pieces, t
 ### [03] Security and Risk Management
 
 * **Focus:** ISO/IEC 27001 standards, NIST frameworks, risk assessment methodologies, and legal/ethical compliance.
-* **Key Takeaway:** Developing the ability to align technical security controls with organizational business objectives.
+* **Key Takeaway:** Developing the ability to align technical security controls with organisational business objectives.
+
+### [04] Network Security
+
+* **Focus:** TBC.
+* **Key Takeaway:** TBC.
+
+### [05] Advanced Object-Oriented Design and Programming
+
+* **Focus:** TBC.
+* **Key Takeaway:** TBC.
 
 ---
 
@@ -33,7 +43,7 @@ I have organized my work by module. Each directory contains reflective pieces, t
 
 *During this degree, I am actively building proficiency in:*
 
-* **Risk Assessment:** Business Impact Analysis (BIA), Threat Modeling, and Vulnerability Assessment.
+* **Risk Assessment:** Business Impact Analysis (BIA), Threat Modelling, and Vulnerability Assessment.
 * **Compliance:** Understanding of GDPR, DPA 2018, and international security standards.
 * **Tools:** TBA.
 
