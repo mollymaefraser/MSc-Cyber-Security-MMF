@@ -1,0 +1,32 @@
+--- Accounts and security checks ---
+Register student                                     -> 201 {'id': 3, 'email': 'student@school.example', 'role': 'student'}
+Register with a weak password                        -> 400 {'error': 'Password must be at least 10 characters long; Password must contain at least one letter and one digit'}
+Register the same email again                        -> 409 {'error': 'An account with that email already exists'}
+Register with a SQL injection email                  -> 400 {'error': 'Invalid email address'}
+Login with the wrong password                        -> 401 {'error': 'Invalid email or password'}
+
+--- Courses and enrolment ---
+Student tries to create a course                     -> 403 {'error': 'Access denied'}
+Instructor creates a course                          -> 201 {'id': 1, 'title': 'Secure Software Engineering', 'description': 'OO design and TDD', 'capacity': 2, 'published': False}
+Student lists courses (draft is hidden)              -> 200 {'courses': []}
+Instructor publishes the course                      -> 200 {'id': 1, 'title': 'Secure Software Engineering', 'description': 'OO design and TDD', 'capacity': 2, 'published': True}
+Student enrols                                       -> 201 {'course_id': 1, 'student_id': 3}
+Student enrols again                                 -> 409 {'error': 'Already enrolled in this course'}
+Student requests the roster                          -> 403 {'error': 'Access denied'}
+Instructor requests the roster                       -> 200 {'students': ['student@school.example']}
+Enrol with a malicious course id                     -> 400 {'error': 'Course id must be a whole number'}
+Use a forged token                                   -> 401 {'error': 'Invalid or expired session'}
+
+--- Brute force protection ---
+Failed login attempt 1                               -> 401 {'error': 'Invalid email or password'}
+Failed login attempt 2                               -> 401 {'error': 'Invalid email or password'}
+Failed login attempt 3                               -> 401 {'error': 'Invalid email or password'}
+Failed login attempt 4                               -> 401 {'error': 'Invalid email or password'}
+Failed login attempt 5                               -> 401 {'error': 'Invalid email or password'}
+Failed login attempt 6                               -> 429 {'error': 'Too many failed attempts, try again later'}
+
+--- Audit trail (no secrets recorded) ---
+login_failed: {'client_id': 'attacker', 'email': 'teacher@school.example'}
+login_failed: {'client_id': 'attacker', 'email': 'teacher@school.example'}
+login_failed: {'client_id': 'attacker', 'email': 'teacher@school.example'}
+login_locked_out: {'client_id': 'attacker', 'email': 'teacher@school.example'}

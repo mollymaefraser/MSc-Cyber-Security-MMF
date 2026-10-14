@@ -1,0 +1,13 @@
+Name                   Stmts   Miss Branch BrPart  Cover   Missing
+------------------------------------------------------------------
+elearn/__init__.py         0      0      0      0   100%
+elearn/audit.py           11      0      0      0   100%
+elearn/controller.py      86      0      8      0   100%
+elearn/courses.py         89      0     14      0   100%
+elearn/database.py        20      0      0      0   100%
+elearn/enrolment.py       67      0     10      0   100%
+elearn/errors.py          18      0      0      0   100%
+elearn/security.py         4      0      2      0   100%
+elearn/users.py          239      0     38      0   100%
+------------------------------------------------------------------
+TOTAL                    534      0     72      0   100%

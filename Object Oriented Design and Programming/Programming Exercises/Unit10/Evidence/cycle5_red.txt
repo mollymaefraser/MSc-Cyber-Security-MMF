@@ -1,0 +1,33 @@
+EE
+======================================================================
+ERROR: test_security (unittest.loader._FailedTest.test_security)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_security
+Traceback (most recent call last):
+  File "/usr/lib/python3.11/unittest/loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "tests/test_security.py", line 4, in <module>
+    from elearn.security import require_role
+ModuleNotFoundError: No module named 'elearn.security'
+
+
+======================================================================
+ERROR: test_courses (unittest.loader._FailedTest.test_courses)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_courses
+Traceback (most recent call last):
+  File "/usr/lib/python3.11/unittest/loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "tests/test_courses.py", line 4, in <module>
+    from tests.world import build_world
+  File "tests/world.py", line 6, in <module>
+    from elearn.courses import CourseService, SqliteCourseRepository
+ModuleNotFoundError: No module named 'elearn.courses'
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+FAILED (errors=2)

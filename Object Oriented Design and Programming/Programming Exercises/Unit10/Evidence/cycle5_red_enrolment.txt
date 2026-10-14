@@ -1,0 +1,20 @@
+E
+======================================================================
+ERROR: test_enrolment (unittest.loader._FailedTest.test_enrolment)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_enrolment
+Traceback (most recent call last):
+  File "/usr/lib/python3.11/unittest/loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "tests/test_enrolment.py", line 5, in <module>
+    from tests.world import STRONG, build_world
+  File "tests/world.py", line 6, in <module>
+    from elearn.courses import CourseService, SqliteCourseRepository
+ModuleNotFoundError: No module named 'elearn.courses'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
