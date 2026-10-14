@@ -6,7 +6,7 @@ This report describes the design, implementation and testing of a secure e-learn
 
 The system is written in Python 3 using only the standard library. It has three modules (User Management, Course Management and Enrolment Management) behind a presentation layer, and it has 137 automated tests with 100% line and branch coverage.
 
-Section 2 covers Task 1 (architecture), Section 3 covers Task 2 (implementation and TDD), and Section 4 covers Task 3 (testing, refactoring and results). Section 5 is an honest list of limitations. The figures are text, so the report can be pasted anywhere. The test figures are copied from the real terminal output of each run (with file paths shortened).
+Section 2 covers Task 1 (architecture), Section 3 covers Task 2 (implementation and TDD), and Section 4 covers Task 3 (testing, refactoring and results). Section 5 lists the limitations. The figures are text, so the report can be pasted anywhere. The test figures are copied from the real terminal output of each run (with file paths shortened).
 
 ---
 
@@ -79,7 +79,7 @@ Scalability. A modular monolith scales vertically and, once session storage is e
 
 Maintainability. Layering separates concerns: the controller contains no business rules, services contain no SQL, and repositories contain no business rules. A change such as swapping SQLite for PostgreSQL touches only the data access layer. A change to the password rules touches only one class. A single codebase with one test suite is far easier for one developer to understand and test than several services.
 
-Security. A monolith has a smaller attack surface than microservices. There is no network traffic between services to encrypt and authenticate, no service-to-service credentials to manage and no distributed authorisation to get wrong. Every request passes through one authentication and authorisation path, and it is easy to see where each control sits.
+Security. A monolith usually has a smaller attack surface than microservices. There is no network traffic between services to encrypt and authenticate, no service-to-service credentials to manage and no distributed authorisation to get wrong. Every request passes through one authentication and authorisation path, and it is easy to see where each control sits.
 
 Microservices would be the better choice if modules needed independent deployment, different technology stacks, or very different scaling profiles. A single unstructured monolith was rejected because it would make the security controls and the tests harder to reason about.
 
@@ -708,7 +708,7 @@ The demo script drives the whole platform through the presentation layer. It sho
 ```
 $ python3 demo.py
 --- Accounts and security checks ---
-Register student                                     -> 201 {'id': 3, 'email': 'molly@school.example', 'role': 'student'}
+Register student                                     -> 201 {'id': 3, 'email': 'student@school.example', 'role': 'student'}
 Register with a weak password                        -> 400 {'error': 'Password must be at least 10 characters long; Password must contain at least one letter and one digit'}
 Register the same email again                        -> 409 {'error': 'An account with that email already exists'}
 Register with a SQL injection email                  -> 400 {'error': 'Invalid email address'}
@@ -722,7 +722,7 @@ Instructor publishes the course                      -> 200 {'id': 1, 'title': '
 Student enrols                                       -> 201 {'course_id': 1, 'student_id': 3}
 Student enrols again                                 -> 409 {'error': 'Already enrolled in this course'}
 Student requests the roster                          -> 403 {'error': 'Access denied'}
-Instructor requests the roster                       -> 200 {'students': ['molly@school.example']}
+Instructor requests the roster                       -> 200 {'students': ['student@school.example']}
 Enrol with a malicious course id                     -> 400 {'error': 'Course id must be a whole number'}
 Use a forged token                                   -> 401 {'error': 'Invalid or expired session'}
 
@@ -759,7 +759,7 @@ Coverage is the only third party tool, and it is optional (pip install coverage)
 
 ## 5. Limitations and Further Work
 
-These are the points I would raise before using this in production, listed honestly.
+These are the points I would raise before using this in production.
 
 1. Transport security is not implemented. TLS must be provided at a reverse proxy, and session tokens must only travel over HTTPS.
 2. Sessions and the audit log are held in memory. They are lost on restart and cannot be shared between several running copies, so horizontal scaling needs a shared session store (for example Redis) and a durable audit log.
@@ -776,7 +776,7 @@ These are the points I would raise before using this in production, listed hones
 
 ## 6. Conclusion
 
-The platform meets the brief: a justified layered architecture with a diagram, three modules, a security analysis, a working object-oriented implementation, TDD evidence through red and green runs, tests for every public method, and documented refactoring. The tests drove real improvements, including a refactored password policy, a robustness fix in the hasher and a missing audit event. Coverage is 100%, a mutation check shows the tests catch nine of ten deliberately introduced security faults, and the remaining limitations are stated openly above.
+The platform meets the brief: a justified layered architecture with a diagram, three modules, a security analysis, a working object-oriented implementation, TDD evidence through red and green runs, tests for every public method, and documented refactoring. The tests drove real improvements, including a refactored password policy, a robustness fix in the hasher and a missing audit event. Coverage is 100%, a mutation check shows the tests catch nine of ten deliberately introduced security faults, and the remaining limitations are set out in Section 5.
 
 ---
 

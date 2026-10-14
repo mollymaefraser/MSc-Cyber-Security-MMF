@@ -2,7 +2,7 @@ import unittest
 
 from elearn.database import Database
 from elearn.audit import AuditLog
-from elearn.errors import (AuthenticationError, AuthorizationError, DuplicateEmailError, NotFoundError,
+from elearn.errors import (AuthenticationError, AuthorisationError, DuplicateEmailError, NotFoundError,
                            TooManyAttemptsError, ValidationError)
 from elearn.users import (LOCKOUT_WINDOW_SECONDS, SESSION_TTL_SECONDS, CharacterMixRule,
                           CommonPasswordRule, LengthRule, PasswordHasher, PasswordPolicy, Role, SqliteUserRepository,
@@ -25,19 +25,19 @@ class RegistrationTests(unittest.TestCase):
         self.service, self.db = build_service()
 
     def test_register_returns_a_student_with_an_id(self):
-        user = self.service.register("molly@example.com", STRONG)
+        user = self.service.register("student@example.com", STRONG)
         self.assertIsInstance(user.id, int)
-        self.assertEqual(user.email, "molly@example.com")
+        self.assertEqual(user.email, "student@example.com")
         self.assertEqual(user.role, Role.STUDENT)
 
     def test_email_is_normalised_to_lower_case_and_trimmed(self):
-        user = self.service.register("  Molly@Example.COM ", STRONG)
-        self.assertEqual(user.email, "molly@example.com")
+        user = self.service.register("  Student@Example.COM ", STRONG)
+        self.assertEqual(user.email, "student@example.com")
 
     def test_duplicate_email_is_rejected_case_insensitively(self):
-        self.service.register("molly@example.com", STRONG)
+        self.service.register("student@example.com", STRONG)
         with self.assertRaises(DuplicateEmailError):
-            self.service.register("MOLLY@example.com", "anotherpass99")
+            self.service.register("STUDENT@example.com", "anotherpass99")
 
     def test_invalid_emails_are_rejected(self):
         for bad in ["", "no-at-sign", "a@b", "two@@example.com", "sp ace@example.com", "x" * 300 + "@example.com"]:
@@ -54,7 +54,7 @@ class RegistrationTests(unittest.TestCase):
             self.service.register("long@example.com", "a1" * 100)
 
     def test_password_is_never_stored_in_plain_text(self):
-        self.service.register("molly@example.com", STRONG)
+        self.service.register("student@example.com", STRONG)
         with self.db.transaction() as conn:
             stored = conn.execute("SELECT password_hash FROM users").fetchone()["password_hash"]
         self.assertNotIn(STRONG, stored)
@@ -77,25 +77,25 @@ class AuthenticationTests(unittest.TestCase):
     def setUp(self):
         self.clock = FakeClock()
         self.service, self.db = build_service(self.clock)
-        self.user = self.service.register("molly@example.com", STRONG)
+        self.user = self.service.register("student@example.com", STRONG)
 
     def test_login_returns_a_token_that_resolves_to_the_user(self):
-        token = self.service.authenticate("molly@example.com", STRONG)
+        token = self.service.authenticate("student@example.com", STRONG)
         self.assertEqual(self.service.user_for_token(token), self.user)
 
     def test_login_is_case_insensitive_on_email(self):
-        token = self.service.authenticate("MOLLY@Example.com", STRONG)
+        token = self.service.authenticate("STUDENT@Example.com", STRONG)
         self.assertEqual(self.service.user_for_token(token).id, self.user.id)
 
     def test_wrong_password_is_rejected(self):
         with self.assertRaises(AuthenticationError):
-            self.service.authenticate("molly@example.com", "wrongpassword1")
+            self.service.authenticate("student@example.com", "wrongpassword1")
 
     def test_unknown_user_gets_the_same_error_as_a_wrong_password(self):
         with self.assertRaises(AuthenticationError) as unknown:
             self.service.authenticate("nobody@example.com", STRONG)
         with self.assertRaises(AuthenticationError) as wrong:
-            self.service.authenticate("molly@example.com", "wrongpassword1")
+            self.service.authenticate("student@example.com", "wrongpassword1")
         self.assertEqual(str(unknown.exception), str(wrong.exception))
 
     def test_non_string_credentials_are_rejected_cleanly(self):
@@ -104,24 +104,24 @@ class AuthenticationTests(unittest.TestCase):
                 self.service.authenticate(bad, bad)
 
     def test_tokens_are_unique_and_unguessably_long(self):
-        first = self.service.authenticate("molly@example.com", STRONG)
-        second = self.service.authenticate("molly@example.com", STRONG)
+        first = self.service.authenticate("student@example.com", STRONG)
+        second = self.service.authenticate("student@example.com", STRONG)
         self.assertNotEqual(first, second)
         self.assertGreaterEqual(len(first), 40)
 
     def test_session_expires_after_the_time_to_live(self):
-        token = self.service.authenticate("molly@example.com", STRONG)
+        token = self.service.authenticate("student@example.com", STRONG)
         self.clock.advance(SESSION_TTL_SECONDS + 1)
         with self.assertRaises(AuthenticationError):
             self.service.user_for_token(token)
 
     def test_session_is_still_valid_just_before_expiry(self):
-        token = self.service.authenticate("molly@example.com", STRONG)
+        token = self.service.authenticate("student@example.com", STRONG)
         self.clock.advance(SESSION_TTL_SECONDS - 1)
         self.assertEqual(self.service.user_for_token(token).id, self.user.id)
 
     def test_logout_invalidates_the_token(self):
-        token = self.service.authenticate("molly@example.com", STRONG)
+        token = self.service.authenticate("student@example.com", STRONG)
         self.service.logout(token)
         with self.assertRaises(AuthenticationError):
             self.service.user_for_token(token)
@@ -132,7 +132,7 @@ class AuthenticationTests(unittest.TestCase):
                 self.service.user_for_token(bad)
 
     def test_session_tokens_are_not_stored_in_plain_text(self):
-        token = self.service.authenticate("molly@example.com", STRONG)
+        token = self.service.authenticate("student@example.com", STRONG)
         self.assertNotIn(token, self.service._sessions._sessions)
 
 
@@ -141,7 +141,7 @@ class EdgeCaseTests(unittest.TestCase):
 
     def setUp(self):
         self.service, self.db = build_service()
-        self.service.register("molly@example.com", STRONG)
+        self.service.register("student@example.com", STRONG)
 
     def test_malformed_email_at_login_is_an_authentication_failure_not_a_validation_leak(self):
         with self.assertRaises(AuthenticationError):
@@ -153,7 +153,7 @@ class EdgeCaseTests(unittest.TestCase):
                 self.service.register(bad, STRONG)
 
     def test_session_for_a_deleted_account_is_rejected(self):
-        token = self.service.authenticate("molly@example.com", STRONG)
+        token = self.service.authenticate("student@example.com", STRONG)
         with self.db.transaction() as conn:
             conn.execute("DELETE FROM users")
         with self.assertRaises(AuthenticationError):
@@ -201,44 +201,44 @@ class LoginThrottleTests(unittest.TestCase):
     def setUp(self):
         self.clock = FakeClock()
         self.service, _ = build_service(self.clock)
-        self.service.register("molly@example.com", STRONG)
+        self.service.register("student@example.com", STRONG)
 
     def fail(self, times, client="client-a"):
         for _ in range(times):
             with self.assertRaises(AuthenticationError):
-                self.service.authenticate("molly@example.com", "wrongpassword1", client)
+                self.service.authenticate("student@example.com", "wrongpassword1", client)
 
     def test_client_is_locked_out_after_five_failures_even_with_the_right_password(self):
         self.fail(5)
         with self.assertRaises(TooManyAttemptsError):
-            self.service.authenticate("molly@example.com", STRONG, "client-a")
+            self.service.authenticate("student@example.com", STRONG, "client-a")
 
     def test_lockout_expires_after_the_window(self):
         self.fail(5)
         self.clock.advance(LOCKOUT_WINDOW_SECONDS + 1)
-        self.assertIsInstance(self.service.authenticate("molly@example.com", STRONG, "client-a"), str)
+        self.assertIsInstance(self.service.authenticate("student@example.com", STRONG, "client-a"), str)
 
     def test_lockout_is_scoped_to_the_client_not_global(self):
         self.fail(5, "client-a")
-        self.assertIsInstance(self.service.authenticate("molly@example.com", STRONG, "client-b"), str)
+        self.assertIsInstance(self.service.authenticate("student@example.com", STRONG, "client-b"), str)
 
     def test_successful_login_resets_the_failure_count(self):
         self.fail(4)
-        self.service.authenticate("molly@example.com", STRONG, "client-a")
+        self.service.authenticate("student@example.com", STRONG, "client-a")
         self.fail(4)  # would have locked out at five without the reset
-        self.assertIsInstance(self.service.authenticate("molly@example.com", STRONG, "client-a"), str)
+        self.assertIsInstance(self.service.authenticate("student@example.com", STRONG, "client-a"), str)
 
 
 class ChangePasswordTests(unittest.TestCase):
     def setUp(self):
         self.service, _ = build_service()
-        self.user = self.service.register("molly@example.com", STRONG)
+        self.user = self.service.register("student@example.com", STRONG)
 
     def test_new_password_works_and_old_password_stops_working(self):
         self.service.change_password(self.user.id, STRONG, "newcorrecthorse7")
-        self.assertIsInstance(self.service.authenticate("molly@example.com", "newcorrecthorse7"), str)
+        self.assertIsInstance(self.service.authenticate("student@example.com", "newcorrecthorse7"), str)
         with self.assertRaises(AuthenticationError):
-            self.service.authenticate("molly@example.com", STRONG)
+            self.service.authenticate("student@example.com", STRONG)
 
     def test_wrong_current_password_is_rejected(self):
         with self.assertRaises(AuthenticationError):
@@ -247,10 +247,10 @@ class ChangePasswordTests(unittest.TestCase):
     def test_weak_new_password_is_rejected_and_old_one_still_works(self):
         with self.assertRaises(ValidationError):
             self.service.change_password(self.user.id, STRONG, "weak")
-        self.assertIsInstance(self.service.authenticate("molly@example.com", STRONG), str)
+        self.assertIsInstance(self.service.authenticate("student@example.com", STRONG), str)
 
     def test_changing_password_revokes_existing_sessions(self):
-        token = self.service.authenticate("molly@example.com", STRONG)
+        token = self.service.authenticate("student@example.com", STRONG)
         self.service.change_password(self.user.id, STRONG, "newcorrecthorse7")
         with self.assertRaises(AuthenticationError):
             self.service.user_for_token(token)
@@ -272,7 +272,7 @@ class RoleManagementTests(unittest.TestCase):
         self.assertEqual(self.service.user_for_token(token).role, Role.INSTRUCTOR)
 
     def test_a_student_cannot_promote_themselves(self):
-        with self.assertRaises(AuthorizationError):
+        with self.assertRaises(AuthorisationError):
             self.service.set_role(self.student, self.student.id, Role.ADMIN)
 
     def test_promoting_an_unknown_user_raises_not_found(self):
@@ -290,25 +290,25 @@ class AuditTests(unittest.TestCase):
         self.service, _ = build_service(audit=self.audit)
 
     def test_registration_and_failed_login_are_recorded(self):
-        self.service.register("molly@example.com", STRONG)
+        self.service.register("student@example.com", STRONG)
         with self.assertRaises(AuthenticationError):
-            self.service.authenticate("molly@example.com", "wrongpassword1", "client-a")
+            self.service.authenticate("student@example.com", "wrongpassword1", "client-a")
         names = [name for name, _ in self.audit.events()]
         self.assertEqual(names, ["user_registered", "login_failed"])
 
     def test_lockout_is_recorded_in_the_audit_log(self):
-        self.service.register("molly@example.com", STRONG)
+        self.service.register("student@example.com", STRONG)
         for _ in range(5):
             with self.assertRaises(AuthenticationError):
-                self.service.authenticate("molly@example.com", "wrongpassword1", "client-a")
+                self.service.authenticate("student@example.com", "wrongpassword1", "client-a")
         with self.assertRaises(TooManyAttemptsError):
-            self.service.authenticate("molly@example.com", STRONG, "client-a")
+            self.service.authenticate("student@example.com", STRONG, "client-a")
         self.assertEqual(self.audit.events()[-1][0], "login_locked_out")
 
     def test_audit_log_never_contains_passwords(self):
-        self.service.register("molly@example.com", STRONG)
+        self.service.register("student@example.com", STRONG)
         with self.assertRaises(AuthenticationError):
-            self.service.authenticate("molly@example.com", "wrongpassword1", "client-a")
+            self.service.authenticate("student@example.com", "wrongpassword1", "client-a")
         self.assertNotIn(STRONG, str(self.audit.events()))
         self.assertNotIn("wrongpassword1", str(self.audit.events()))
 

@@ -22,13 +22,13 @@ class RecordingNotifier(NotificationService):
 class UserManagerWithMock(unittest.TestCase):
     def test_register_user_sends_a_welcome_message(self):
         notifier = Mock(spec=NotificationService)
-        UserManager(notifier).register_user("molly@example.com")
-        notifier.send_notification.assert_called_once_with("molly@example.com", "Welcome!")
+        UserManager(notifier).register_user("student@example.com")
+        notifier.send_notification.assert_called_once_with("student@example.com", "Welcome!")
 
     def test_nothing_real_is_sent_when_a_mock_is_injected(self):
         out = io.StringIO()
         with redirect_stdout(out):
-            UserManager(Mock(spec=NotificationService)).register_user("molly@example.com")
+            UserManager(Mock(spec=NotificationService)).register_user("student@example.com")
         self.assertEqual(out.getvalue(), "")
 
     def test_each_registration_sends_exactly_one_message_to_that_user(self):
@@ -54,8 +54,8 @@ class UserManagerWithMock(unittest.TestCase):
 class UserManagerWithFake(unittest.TestCase):
     def test_a_hand_written_fake_records_the_message(self):
         notifier = RecordingNotifier()
-        UserManager(notifier).register_user("molly@example.com")
-        self.assertEqual(notifier.sent, [("molly@example.com", "Welcome!")])
+        UserManager(notifier).register_user("student@example.com")
+        self.assertEqual(notifier.sent, [("student@example.com", "Welcome!")])
 
 
 class UserManagerBehaviour(unittest.TestCase):
@@ -63,7 +63,7 @@ class UserManagerBehaviour(unittest.TestCase):
         notifier = Mock(spec=NotificationService)
         notifier.send_notification.side_effect = ConnectionError("SMTP server down")
         with self.assertRaises(ConnectionError):
-            UserManager(notifier).register_user("molly@example.com")
+            UserManager(notifier).register_user("student@example.com")
 
     def test_the_dependency_is_required(self):
         with self.assertRaises(TypeError):
@@ -77,7 +77,7 @@ class UserManagerBehaviour(unittest.TestCase):
         for service in (EmailService(), SMSService(), RecordingNotifier()):
             out = io.StringIO()
             with redirect_stdout(out):
-                UserManager(service).register_user("molly@example.com")  # must not raise
+                UserManager(service).register_user("student@example.com")  # must not raise
 
 
 if __name__ == "__main__":

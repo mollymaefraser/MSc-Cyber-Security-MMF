@@ -1,6 +1,6 @@
 import unittest
 
-from elearn.errors import AuthorizationError, NotFoundError, ValidationError
+from elearn.errors import AuthorisationError, NotFoundError, ValidationError
 from tests.world import build_world
 
 
@@ -19,7 +19,7 @@ class CreateCourseTests(unittest.TestCase):
         self.assertIsNotNone(self.w.courses.create_course(self.w.admin, "Admin Course", "d", 5).id)
 
     def test_student_cannot_create_a_course(self):
-        with self.assertRaises(AuthorizationError):
+        with self.assertRaises(AuthorisationError):
             self.w.courses.create_course(self.w.student, "Sneaky", "d", 5)
 
     def test_title_is_trimmed(self):
@@ -58,11 +58,11 @@ class PublishAndViewTests(unittest.TestCase):
         self.assertTrue(self.w.courses.publish_course(self.w.admin, self.course.id).published)
 
     def test_another_instructor_cannot_publish_it(self):
-        with self.assertRaises(AuthorizationError):
+        with self.assertRaises(AuthorisationError):
             self.w.courses.publish_course(self.w.other_instructor, self.course.id)
 
     def test_student_cannot_publish(self):
-        with self.assertRaises(AuthorizationError):
+        with self.assertRaises(AuthorisationError):
             self.w.courses.publish_course(self.w.student, self.course.id)
 
     def test_publishing_an_unknown_course_raises_not_found(self):

@@ -17,7 +17,7 @@ class AuthenticationError(ELearnError):
     pass
 
 
-class AuthorizationError(ELearnError):
+class AuthorisationError(ELearnError):
     pass
 
 

@@ -1,6 +1,6 @@
 import unittest
 
-from elearn.errors import AuthorizationError
+from elearn.errors import AuthorisationError
 from elearn.security import require_role
 from elearn.users import Role, User
 
@@ -14,11 +14,11 @@ class RequireRoleTests(unittest.TestCase):
         require_role(user_with(Role.INSTRUCTOR), Role.INSTRUCTOR, Role.ADMIN)
 
     def test_other_role_is_denied(self):
-        with self.assertRaises(AuthorizationError):
+        with self.assertRaises(AuthorisationError):
             require_role(user_with(Role.STUDENT), Role.INSTRUCTOR, Role.ADMIN)
 
     def test_denial_message_does_not_reveal_which_roles_would_work(self):
-        with self.assertRaises(AuthorizationError) as ctx:
+        with self.assertRaises(AuthorisationError) as ctx:
             require_role(user_with(Role.STUDENT), Role.ADMIN)
         self.assertNotIn("admin", str(ctx.exception).lower())
 

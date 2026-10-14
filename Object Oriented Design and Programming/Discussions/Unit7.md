@@ -1,7 +1,7 @@
 # Collaborative Discussion: Refactoring an Insecure Authentication System
 
 **Unit:** Formative Collaborative Discussion (starts and ends in this unit week)
-**Note:** Not assessed — informal tutor feedback only.
+**Note:** Not assessed, informal tutor feedback only.
 
 ---
 
@@ -58,7 +58,7 @@ print(auth_system.authenticate(malicious_input, "anything"))
 ## 1. Vulnerabilities Identified
 
 - **Plaintext password storage:** `User.password` stores the raw password. A database breach exposes every credential directly, and since people reuse passwords, this often compromises accounts on unrelated systems too.
-- **Injection-style logic flaw:** `authenticate()` does a direct string comparison, so it isn't technically SQL-injectable as written (there's no query being built) — but it illustrates the *pattern* that causes real SQL injection: if this logic were backed by a database using string-concatenated queries like `f"SELECT * FROM users WHERE username='{username}'"`, the same `admin' OR '1'='1` payload would genuinely bypass authentication. The lesson is the same either way: never trust raw input in an auth check.
+- **Injection-style logic flaw:** `authenticate()` does a direct string comparison, so it isn't technically SQL-injectable as written (there's no query being built), but it illustrates the *pattern* that causes real SQL injection: if this logic were backed by a database using string-concatenated queries like `f"SELECT * FROM users WHERE username='{username}'"`, the same `admin' OR '1'='1` payload would genuinely bypass authentication. The lesson is the same either way: never trust raw input in an auth check.
 - **Weak password policy:** `"admin123"` and `"password"` are accepted with no minimum complexity, length, or common-password checks.
 - **No input validation:** empty strings, oversized input, or malformed payloads are accepted without sanitisation.
 - **No rate limiting:** `authenticate()` can be called unlimited times, making brute-force and credential-stuffing attacks trivial.
@@ -135,8 +135,8 @@ class AuthenticationSystem:
 auth_system = AuthenticationSystem()
 auth_system.add_user("admin", "Str0ngP@ssw0rd!")
 
-# Injection-style payload no longer bypasses anything —
-# it's just treated as an (invalid) username and rejected outright.
+# Injection-style payload no longer bypasses anything.
+# It's just treated as an (invalid) username and rejected outright.
 try:
     auth_system.authenticate("admin' OR '1'='1", "anything")
 except ValueError as e:
@@ -149,7 +149,7 @@ print(auth_system.authenticate("admin", "Str0ngP@ssw0rd!"))  # True
 
 ## 3. Benefits of the Refactor
 
-- **Hashing (bcrypt):** even if the user store is stolen, passwords aren't directly usable — bcrypt's built-in salting also defeats precomputed rainbow-table attacks.
+- **Hashing (bcrypt):** even if the user store is stolen, passwords aren't directly usable, and bcrypt's built-in salting also defeats precomputed rainbow-table attacks.
 - **Input sanitisation:** the injection-style payload is now simply rejected as an invalid username, rather than being interpreted as logic.
 - **Password policy enforcement:** rejects weak passwords like `"admin123"` at creation time, reducing the attack surface from the start.
 - **Rate limiting:** locks out repeated failed attempts per username, making brute-force attacks impractically slow.

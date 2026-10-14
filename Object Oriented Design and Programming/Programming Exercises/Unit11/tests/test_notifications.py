@@ -24,8 +24,8 @@ class EmailServiceTests(unittest.TestCase):
         self.assertIsInstance(EmailService(), NotificationService)
 
     def test_formats_the_email(self):
-        self.assertEqual(capture(EmailService(), "molly@example.com", "Welcome!"),
-                         "Sending email to molly@example.com: Welcome!\n")
+        self.assertEqual(capture(EmailService(), "student@example.com", "Welcome!"),
+                         "Sending email to student@example.com: Welcome!\n")
 
 
 class SMSServiceTests(unittest.TestCase):

@@ -1,6 +1,6 @@
 # Unit 4 Seminar
 
-## Title: Design Patterns II – Structural Patterns
+## Title: Design Patterns II: Structural Patterns
 
 ---
 
@@ -40,10 +40,10 @@ The seminar includes a case study on the use of structural patterns in real-worl
 
 ### 2. How Structural Patterns Enable Modular and Flexible Code
 
-- They promote **modularity** by separating concerns — each class has a clear, narrow role (e.g. a `Device` only knows how to turn on/off; a `RemoteControl` only knows how to send commands).
+- They promote **modularity** by separating concerns; each class has a clear, narrow role (e.g. a `Device` only knows how to turn on/off; a `RemoteControl` only knows how to send commands).
 - They promote **flexibility** by allowing behaviour or structure to change at runtime (Decorator, Proxy) or by allowing new implementations to be added without modifying existing code (Adapter, Bridge).
 - They promote **reusability** by defining shared interfaces (e.g. `FileSystemComponent`, `PaymentGateway`) that let new concrete classes plug into existing client code untouched.
-- In **large-scale systems**, they help manage complexity by hiding subsystem detail behind a single interface (Facade), avoiding class explosion from combinatorial subclassing (Bridge), and controlling access to expensive or sensitive resources (Proxy) — all of which keep systems maintainable as they grow.
+- In **large-scale systems**, they help manage complexity by hiding subsystem detail behind a single interface (Facade), avoiding class explosion from combinatorial subclassing (Bridge), and controlling access to expensive or sensitive resources (Proxy), all of which keep systems maintainable as they grow.
 - In domains like **network security**, structural patterns are commonly used to wrap legacy or third-party components behind consistent, controlled interfaces (Adapter, Proxy), so that security checks, logging, or rate-limiting can be layered in without touching the underlying implementation.
 
 ### 3. Practical Exercise: Decorator Pattern
@@ -126,7 +126,7 @@ if __name__ == "__main__":
 **Why this works as a Decorator example:**
 - `SimpleCoffee` is the base component with a fixed cost and description.
 - Each decorator (`MilkDecorator`, `SugarDecorator`, `WhippedCreamDecorator`) wraps a `Coffee` object and adds its own cost/description on top, without modifying `SimpleCoffee` itself.
-- Decorators can be stacked in any combination and order at runtime, giving flexible, composable behaviour — this is the core benefit of the Decorator pattern over creating a rigid subclass for every topping combination (e.g. `CoffeeWithMilkAndSugar`).
+- Decorators can be stacked in any combination and order at runtime, giving flexible, composable behaviour; this is the core benefit of the Decorator pattern over creating a rigid subclass for every topping combination (e.g. `CoffeeWithMilkAndSugar`).
 
 ---
 

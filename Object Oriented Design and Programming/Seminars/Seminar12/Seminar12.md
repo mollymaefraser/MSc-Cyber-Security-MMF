@@ -127,6 +127,7 @@ safelib==3.0.0 risk=0.00 worst=NONE
 - Observer failures are swallowed to protect the scan. A production system should log them to a separate channel.
 - The risk model is a rule-based placeholder. Its weights are illustrative, not validated against real incident data.
 - The in-memory cache has no expiry, so advisories published after a lookup would not be seen by a long-running process.
+- ModelRegistry picks the latest version by sorting version strings, so v10 would sort before v9. Proper version ordering is needed before more than a few versions exist.
 
 ---
 
@@ -138,7 +139,7 @@ The four principles solve different problems. Encapsulation protects invariants 
 
 ## 2.2 Design Patterns
 
-Creational patterns control how objects are made (Factory Method, Abstract Factory, Builder). Structural patterns control how objects are composed (Adapter, Bridge, Composite, Decorator, Facade, Proxy). Behavioural patterns control how objects communicate (Strategy, Observer, Visitor). Patterns are a shared vocabulary, not a goal in themselves: each one in the capstone is there because a concrete variation point needed it, and a pattern added without such a need is a code smell of its own.
+Creational patterns control how objects are made (Factory Method, Abstract Factory, Builder). Structural patterns control how objects are composed (Adapter, Bridge, Composite, Decorator, Facade, Proxy). Behavioural patterns control how objects communicate (Strategy, Observer, Visitor). Patterns give a team a shared vocabulary. Each one in the capstone is there because a concrete variation point needed it, and adding a pattern without such a need is itself a code smell.
 
 ## 2.3 Concurrency and Parallelism
 
@@ -154,7 +155,7 @@ Refactoring changes structure without changing behaviour, and relies on a test s
 
 ## 2.6 Test-Driven Development
 
-TDD follows red, green, refactor: write a failing test, write the minimum code to pass it, then improve the design with the tests as a safety net. Benefits are a design shaped by usage, built-in regression protection, and fewer untested paths. Good unit tests are isolated, fast, deterministic and named after the behaviour they check. Mocks verify interactions, stubs supply canned answers, and Mock(spec=...) or create_autospec ensure a test double still matches the real interface. The suite for this project has 39 tests covering validation, parsing, adapters, decorators, scoring, authentication, the facade, observers, visitors and concurrency, and each security property above has at least one test that would fail if the property were removed.
+TDD follows red, green, refactor: write a failing test, write the minimum code to pass it, then improve the design with the tests as a safety net. Benefits are a design shaped by usage, built-in regression protection, and fewer untested paths. Good unit tests are isolated, fast, deterministic and named after the behaviour they check. Mocks verify interactions, stubs supply canned answers, and Mock(spec=...) or create_autospec ensure a test double still matches the real interface. The suite for this project has 39 tests covering validation, parsing, adapters, decorators, scoring, authentication, the facade, observers, visitors and concurrency, and the main security properties above each have a test.
 
 ## 2.7 Quick Revision Table
 

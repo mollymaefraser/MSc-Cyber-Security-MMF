@@ -43,8 +43,8 @@ class ContainerWiring(unittest.TestCase):
         container = build("email")
         mock_notifier = Mock(spec=NotificationService)
         with container.notification_service.override(providers.Object(mock_notifier)):
-            container.user_manager().register_user("molly@example.com")
-        mock_notifier.send_notification.assert_called_once_with("molly@example.com", "Welcome!")
+            container.user_manager().register_user("student@example.com")
+        mock_notifier.send_notification.assert_called_once_with("student@example.com", "Welcome!")
 
     def test_override_is_undone_after_the_with_block(self):
         container = build("email")

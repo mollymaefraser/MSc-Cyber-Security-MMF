@@ -1,7 +1,7 @@
 # Collaborative Discussion: Identifying Code Smells and Refactoring
 
 **Unit:** Formative Collaborative Discussion (starts and ends in this unit week)
-**Note:** Not assessed — informal tutor feedback only.
+**Note:** Not assessed, informal tutor feedback only.
 
 ---
 
@@ -37,7 +37,7 @@ def calculate_total_price(items):
 
 ## 1. Code Smells Identified
 
-**Magic Numbers:** `0.9` and `0.8` are hardcoded directly into the calculation with only a trailing comment to explain them. There's no single place to update if the book discount changes from 10% to 15% — you'd have to find and edit the literal inside the function, and if the same discount value were used elsewhere in the codebase, you'd have to update it in multiple places consistently.
+**Magic Numbers:** `0.9` and `0.8` are hardcoded directly into the calculation with only a trailing comment to explain them. There's no single place to update if the book discount changes from 10% to 15%, you'd have to find and edit the literal inside the function, and if the same discount value were used elsewhere in the codebase, you'd have to update it in multiple places consistently.
 
 **Long Method with Conditional Logic:** `calculate_total_price()` mixes iteration, discount rule selection, and calculation all in one function. Every new item type (e.g. "clothing", "toys") means adding another `elif` branch, so the function's complexity grows unbounded and it becomes harder to read, test, and reason about as the business adds more categories.
 
@@ -45,7 +45,7 @@ def calculate_total_price(items):
 
 ## 2. Refactored Code
 
-### Option 1 — Named Constants (Simpler Approach)
+### Option 1: Named Constants (Simpler Approach)
 
 ```python
 BOOK_DISCOUNT = 0.9        # 10% off books
@@ -64,9 +64,9 @@ def calculate_total_price(items):
     return total
 ```
 
-This fixes the magic numbers but the conditional chain — and its scaling problem — remains.
+This fixes the magic numbers but the conditional chain (and its scaling problem) remains.
 
-### Option 2 — Strategy Pattern (More Scalable)
+### Option 2: Strategy Pattern (More Scalable)
 
 ```python
 from abc import ABC, abstractmethod
@@ -107,5 +107,5 @@ def calculate_total_price(items):
     return total
 ```
 
-Adding a new discount rule (e.g. `ClothingDiscount`) means adding a class and a dictionary entry — `calculate_total_price()` itself never changes again.
+Adding a new discount rule (e.g. `ClothingDiscount`) means adding a class and a dictionary entry, so `calculate_total_price()` itself never changes again.
 

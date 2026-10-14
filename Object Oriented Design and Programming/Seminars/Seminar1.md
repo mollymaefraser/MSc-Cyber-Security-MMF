@@ -72,7 +72,7 @@ class Truck(Vehicle):
         self.load_capacity = load_capacity
 ```
 
-This mirrors the structure covered in the wider OOP recap: each subclass inherits shared attributes from `Vehicle` via `super().__init__()`, while adding its own specific attributes — demonstrating inheritance directly, and setting up the foundation for polymorphism (e.g. overriding `describe()` per subclass), abstraction (hiding internal detail behind simple methods), and encapsulation (controlling access to attributes where needed).
+This mirrors the structure covered in the wider OOP recap: each subclass inherits shared attributes from `Vehicle` via `super().__init__()`, while adding its own specific attributes, demonstrating inheritance directly, and setting up the foundation for polymorphism (e.g. overriding `describe()` per subclass), abstraction (hiding internal detail behind simple methods), and encapsulation (controlling access to attributes where needed).
 
 ---
 

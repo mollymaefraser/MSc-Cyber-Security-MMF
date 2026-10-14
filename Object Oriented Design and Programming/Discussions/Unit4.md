@@ -1,7 +1,7 @@
 # Collaborative Discussion: Structural Design Patterns
 
 **Unit:** Formative Collaborative Discussion (starts and ends in this unit week)
-**Note:** Not assessed — informal tutor feedback only.
+**Note:** Not assessed, informal tutor feedback only.
 
 
 ## Task 1: Adapter Pattern
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     checkout(adapter, 49.99)
 ```
 
-The client's `checkout()` function depends only on `PaymentGateway`, so swapping the legacy system for a different one later requires no changes to the checkout logic — just a new adapter.
+The client's `checkout()` function depends only on `PaymentGateway`, so swapping the legacy system for a different one later requires no changes to the checkout logic, just a new adapter.
 
 
 ---
@@ -56,7 +56,7 @@ The client's `checkout()` function depends only on `PaymentGateway`, so swapping
 
 **Scenario:** A company sells devices (TV, Radio) and remote controls (Basic, Advanced) in various combinations. Without the Bridge Pattern, you'd need a separate class for every device/remote pairing (`BasicTVRemote`, `AdvancedTVRemote`, `BasicRadioRemote`...), which explodes combinatorially as either side grows.
 
-**Explanation:** The Bridge Pattern splits this into two independent hierarchies — `RemoteControl` (abstraction) and `Device` (implementation) — connected by composition rather than inheritance. Any remote can control any device, and each hierarchy can grow independently.
+**Explanation:** The Bridge Pattern splits this into two independent hierarchies, `RemoteControl` (abstraction) and `Device` (implementation), connected by composition rather than inheritance. Any remote can control any device, and each hierarchy can grow independently.
 
 ```python
 from abc import ABC, abstractmethod
@@ -114,7 +114,7 @@ if __name__ == "__main__":
     advanced_remote.mute()
 ```
 
-Adding a new device (e.g. `SmartSpeaker`) or a new remote type requires no changes to the other hierarchy — they vary independently, which is exactly what Bridge is for.
+Adding a new device (e.g. `SmartSpeaker`) or a new remote type requires no changes to the other hierarchy; they vary independently, which is exactly what Bridge is for.
 
 
 ---
@@ -180,5 +180,5 @@ if __name__ == "__main__":
     print(f"Total size: {root.size()}KB")
 ```
 
-Whether `size()` is called on a lone `File` or an entire `Folder` tree, the interface is identical — the client never needs to check types.
+Whether `size()` is called on a lone `File` or an entire `Folder` tree, the interface is identical; the client never needs to check types.
 

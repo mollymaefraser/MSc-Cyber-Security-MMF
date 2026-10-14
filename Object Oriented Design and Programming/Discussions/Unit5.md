@@ -1,7 +1,7 @@
 # Collaborative Discussion: Strategy Pattern Refactoring
 
 **Unit:** Formative Collaborative Discussion (starts and ends in this unit week)
-**Note:** Not assessed — informal tutor feedback only.
+**Note:** Not assessed, informal tutor feedback only.
 
 ---
 
@@ -38,14 +38,14 @@ class PaymentProcessor:
 ## 1. Problems in the Current Implementation
 
 - **Violates OCP:** Adding a new payment method (e.g. Crypto) means editing `PaymentProcessor` directly, risking existing logic every time the system grows.
-- **Tight coupling:** All payment logic lives inside one method, so `PaymentProcessor` knows the implementation details of every payment type — it isn't just orchestrating, it's doing the work itself.
+- **Tight coupling:** All payment logic lives inside one method, so `PaymentProcessor` knows the implementation details of every payment type; it isn't just orchestrating, it's doing the work itself.
 - **Poor readability/maintainability:** The if-elif chain scales linearly with payment types; with a dozen methods this becomes a long, error-prone block that's hard to test in isolation.
 
 ---
 
 ## 2. How the Strategy Pattern Helps
 
-The Strategy Pattern extracts each payment method into its own class implementing a shared interface. `PaymentProcessor` no longer contains payment logic — it just delegates to whichever strategy object it's given. This satisfies OCP (new strategies are added, not edited in), removes the coupling (each strategy is independently testable), and replaces the if-elif chain with simple delegation.
+The Strategy Pattern extracts each payment method into its own class implementing a shared interface. `PaymentProcessor` no longer contains payment logic; it just delegates to whichever strategy object it's given. This satisfies OCP (new strategies are added, not edited in), removes the coupling (each strategy is independently testable), and replaces the if-elif chain with simple delegation.
 
 ---
 
@@ -99,7 +99,7 @@ if __name__ == "__main__":
     processor.process_payment(200)
 ```
 
-A new method like `CryptoPayment` is added as a new class implementing `PaymentStrategy` — `PaymentProcessor` never changes.
+A new method like `CryptoPayment` is added as a new class implementing `PaymentStrategy`; `PaymentProcessor` never changes.
 
 ---
 

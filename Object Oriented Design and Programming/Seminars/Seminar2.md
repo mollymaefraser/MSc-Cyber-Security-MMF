@@ -18,7 +18,7 @@ By the end of this seminar, students should be able to:
 
 ## General Overview
 
-This seminar provides a detailed exploration of the SOLID principles of object-oriented design, which are essential for writing maintainable, scalable, and robust software systems. Students will learn about each of the five SOLID principles — Single Responsibility Principle (SRP), Open/Closed Principle (OCP), Liskov Substitution Principle (LSP), Interface Segregation Principle (ISP), and Dependency Inversion Principle (DIP) — and how to apply them in real-world systems.
+This seminar provides a detailed exploration of the SOLID principles of object-oriented design, which are essential for writing maintainable, scalable, and robust software systems. Students will learn about each of the five SOLID principles: Single Responsibility Principle (SRP), Open/Closed Principle (OCP), Liskov Substitution Principle (LSP), Interface Segregation Principle (ISP), and Dependency Inversion Principle (DIP). They will also learn how to apply them in real-world systems.
 
 The seminar includes a practical exercise where students refactor code to adhere to SOLID principles, reinforcing the theoretical concepts covered.
 
@@ -34,7 +34,7 @@ The seminar includes a practical exercise where students refactor code to adhere
 
 | Principle | Summary |
 |---|---|
-| **Single Responsibility Principle (SRP)** | A class should have only one reason to change — i.e. one job. |
+| **Single Responsibility Principle (SRP)** | A class should have only one reason to change, i.e. one job. |
 | **Open/Closed Principle (OCP)** | Classes should be open for extension but closed for modification. |
 | **Liskov Substitution Principle (LSP)** | Subclasses should be substitutable for their base class without breaking functionality. |
 | **Interface Segregation Principle (ISP)** | Prefer several small, focused interfaces over one large, general-purpose one. |
@@ -46,7 +46,7 @@ Hands-on session where students refactor code to adhere to SOLID principles.
 
 **Worked example: online shopping system**
 
-Starting point — a poorly designed `Order` class that mixes cart management, total calculation, and payment processing in one place:
+Starting point: a poorly designed `Order` class that mixes cart management, total calculation, and payment processing in one place:
 
 ```python
 class Order:
@@ -68,15 +68,15 @@ class Order:
 ```
 
 **Issues:**
-- Violates **SRP** — `Order` handles cart management *and* payment.
-- Violates **OCP** — every new payment method means editing `pay()`.
-- Violates **DIP** — `Order` is tightly coupled to specific payment types.
+- Violates **SRP**: `Order` handles cart management *and* payment.
+- Violates **OCP**: every new payment method means editing `pay()`.
+- Violates **DIP**: `Order` is tightly coupled to specific payment types.
 
 **Refactored solution:**
 
-- `Order` — manages items and calculates totals only (**SRP**).
-- `PaymentMethod` — an abstract base class defining `pay(amount)`, with concrete subclasses (`CreditCardPayment`, `PayPalPayment`, `CryptoPayment`) implementing it (**OCP**, **LSP**).
-- `PaymentProcessor` — depends on the `PaymentMethod` abstraction rather than any concrete class, with the specific method injected at runtime (**DIP**).
+- `Order`: manages items and calculates totals only (**SRP**).
+- `PaymentMethod`: an abstract base class defining `pay(amount)`, with concrete subclasses (`CreditCardPayment`, `PayPalPayment`, `CryptoPayment`) implementing it (**OCP**, **LSP**).
+- `PaymentProcessor`: depends on the `PaymentMethod` abstraction rather than any concrete class, with the specific method injected at runtime (**DIP**).
 - Interfaces stay small and focused, e.g. `PaymentMethod` only defines `pay()`, keeping unrelated behaviour (like refunds) in a separate interface (**ISP**).
 
 This mirrors the same refactor covered in the seminar's practical exercise, and is a useful reference point when practising your own refactoring.

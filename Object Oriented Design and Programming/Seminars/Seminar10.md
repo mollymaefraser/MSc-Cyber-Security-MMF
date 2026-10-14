@@ -19,7 +19,7 @@ By the end of this seminar, students should be able to:
 
 This seminar introduces Test Driven Development (TDD), a software development approach where tests are written before the code they test. Students will see why unit testing matters for code quality, bug reduction and long term maintainability, and will work through a practical exercise that uses TDD to build a signup risk checking component from nothing.
 
-The same exercise is then extended in three further stages: refactoring the finished component with advanced design patterns, isolating it from external dependencies using mocking frameworks, and using AI assisted tools to help generate and review test cases, with human verification kept firmly in charge throughout.
+The same exercise is then extended in three further stages: refactoring the finished component with advanced design patterns, isolating it from external dependencies using mocking frameworks, and using AI assisted tools to help generate and review test cases, with every generated test reviewed by a person before it is kept.
 
 ---
 
@@ -75,13 +75,13 @@ The same cycle was then repeated for each further rule in turn: a complexity rul
 
 Once three independent rules existed, a PasswordValidator class was introduced to run a configurable list of them together and collect every violation, rather than stopping at the first failure. This is a refactoring step in its own right: no new behaviour was added, but the three rules became easier to combine and extend. The full set of these tests, and the resulting classes, are in Appendix A and Appendix B.
 
-This same pattern, a short cycle repeated once per small piece of behaviour, is exactly how the rest of the component was grown: a basic SignupService combining the validator with a password hasher and a fraud scoring check was added once the validator itself was solid, again one test at a time.
+This same pattern, a short cycle repeated once per small piece of behaviour, is how the rest of the component was grown: a basic SignupService combining the validator with a password hasher and a fraud scoring check was added once the validator itself was solid, again one test at a time.
 
 ---
 
 ## Part 4: Advanced Design Patterns Applied to the Same Exercise
 
-Once the core component worked and was covered by tests, it was refactored using four further patterns, without changing what it does from the outside. Every test written in Part 3 still passes after each of these changes, which is the entire point of refactoring under a safety net of tests.
+Once the core component worked and was covered by tests, it was refactored using four further patterns, without changing what it does from the outside. Every test written in Part 3 still passes after each of these changes, which is what the tests are there to confirm.
 
 ### Strategy: interchangeable password validation rules
 
@@ -89,7 +89,7 @@ MinimumLengthStrategy, ComplexityStrategy and CommonPasswordStrategy all impleme
 
 ### Decorator: adding logging and rate limiting without touching the core service
 
-LoggingSignupDecorator and RateLimitingSignupDecorator both wrap a SignupServiceComponent and add behaviour before or after calling through to the wrapped object. SignupService itself has no logging code and no rate limiting code anywhere inside it. The two concerns are layered on from outside, and can be combined in either order, or left off entirely for a test that wants the plain service, which is exactly what most of the tests in Appendix C do.
+LoggingSignupDecorator and RateLimitingSignupDecorator both wrap a SignupServiceComponent and add behaviour before or after calling through to the wrapped object. SignupService itself has no logging code and no rate limiting code anywhere inside it. The two concerns are layered on from outside, and can be combined in either order, or left off entirely for a test that wants the plain service, which is what most of the tests in Appendix D do.
 
 ### Visitor: separating reporting and analytics from the result itself
 
@@ -107,7 +107,7 @@ ModelRegistry manages named, versioned models. A caller can ask for the latest v
 
 FeatureStore centralises how a signup attempt's features, such as how many recent signups have come from the same IP address, are computed, so that every caller reads those features the same way rather than each writing its own version of that logic. FraudScoringService depends on both abstractions, and is the one place in the system that actually calls a model with a set of features.
 
-Neither abstraction does anything especially clever here. Their value in this exercise is architectural: they give the rest of the codebase a stable interface to depend on, so a real model registry or feature store, or an entirely different fraud detection approach, could be substituted later without any other class needing to change.
+Both are deliberately simple. They matter here because they give the rest of the codebase a stable interface to depend on, so a real model registry or feature store, or an entirely different fraud detection approach, could be substituted later without any other class needing to change.
 
 ---
 
@@ -160,7 +160,7 @@ AI assisted tools can help with testing in a few concrete ways: suggesting test 
 
 Three such suggestions were used in Appendix E of this exercise: a very long password, a password containing non ASCII characters, and an empty IP address string being checked against the rate limiter. Each was reviewed before being added. A further suggestion, fuzzing the password argument with random byte sequences, was considered and not added, since SignupService only ever receives a Python string from the form layer in this system, so that scenario cannot actually occur here and testing it would not check anything real.
 
-This is the central point to take from this section: an AI suggested test case is a starting point, not a finished one. Three things stay firmly the responsibility of the developer, whatever tool proposed the test:
+An AI suggested test case still has to be checked before it goes in. Three things remain the developer's responsibility, whatever tool proposed the test:
 
 - Human verification, confirming the suggested scenario can actually happen and is worth covering, before it is added to the suite.
 - Test quality, making sure an added test asserts something meaningful rather than simply running code without checking its result.

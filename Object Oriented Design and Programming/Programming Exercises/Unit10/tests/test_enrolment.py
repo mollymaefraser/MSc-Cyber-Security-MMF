@@ -1,7 +1,7 @@
 import threading
 import unittest
 
-from elearn.errors import (AuthorizationError, CourseFullError, EnrolmentError, NotFoundError)
+from elearn.errors import (AuthorisationError, CourseFullError, EnrolmentError, NotFoundError)
 from tests.world import STRONG, build_world
 
 
@@ -18,7 +18,7 @@ class EnrolTests(unittest.TestCase):
 
     def test_instructors_and_admins_cannot_enrol(self):
         for actor in (self.w.instructor, self.w.admin):
-            with self.assertRaises(AuthorizationError):
+            with self.assertRaises(AuthorisationError):
                 self.w.enrolments.enrol(actor, self.course.id)
 
     def test_cannot_enrol_in_an_unpublished_course(self):
@@ -70,7 +70,7 @@ class UnenrolTests(unittest.TestCase):
             self.w.enrolments.unenrol(self.w.student, self.course.id)
 
     def test_non_students_cannot_unenrol(self):
-        with self.assertRaises(AuthorizationError):
+        with self.assertRaises(AuthorisationError):
             self.w.enrolments.unenrol(self.w.instructor, self.course.id)
 
 
@@ -92,7 +92,7 @@ class CoursesForStudentTests(unittest.TestCase):
         self.assertEqual(len(self.w.enrolments.courses_for_student(self.w.student2)), 1)
 
     def test_non_students_are_denied(self):
-        with self.assertRaises(AuthorizationError):
+        with self.assertRaises(AuthorisationError):
             self.w.enrolments.courses_for_student(self.w.instructor)
 
 
@@ -113,7 +113,7 @@ class RosterTests(unittest.TestCase):
 
     def test_other_instructors_and_students_are_denied(self):
         for actor in (self.w.other_instructor, self.w.student):
-            with self.assertRaises(AuthorizationError):
+            with self.assertRaises(AuthorisationError):
                 self.w.enrolments.roster(actor, self.course.id)
 
     def test_unknown_course_raises_not_found(self):

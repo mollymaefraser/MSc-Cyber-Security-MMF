@@ -27,13 +27,13 @@ if __name__ == "__main__":
     teacher = users.set_role(admin, users.register("teacher@school.example", "teacherpass-2026").id, Role.INSTRUCTOR)
 
     print("--- Accounts and security checks ---")
-    show("Register student", api.register("molly@school.example", "correcthorse42"))
+    show("Register student", api.register("student@school.example", "correcthorse42"))
     show("Register with a weak password", api.register("weak@school.example", "abc"))
-    show("Register the same email again", api.register("molly@school.example", "correcthorse42"))
+    show("Register the same email again", api.register("student@school.example", "correcthorse42"))
     show("Register with a SQL injection email", api.register("x'); DROP TABLE users;--@a.com", "correcthorse42"))
-    show("Login with the wrong password", api.login("molly@school.example", "wrong-password-1", "laptop"))
+    show("Login with the wrong password", api.login("student@school.example", "wrong-password-1", "laptop"))
     teacher_token = api.login("teacher@school.example", "teacherpass-2026", "laptop").body["token"]
-    student_token = api.login("molly@school.example", "correcthorse42", "laptop").body["token"]
+    student_token = api.login("student@school.example", "correcthorse42", "laptop").body["token"]
 
     print("\n--- Courses and enrolment ---")
     show("Student tries to create a course", api.create_course(student_token, "Hack", "d", 5))

@@ -1,5 +1,5 @@
 --- Accounts and security checks ---
-Register student                                     -> 201 {'id': 3, 'email': 'molly@school.example', 'role': 'student'}
+Register student                                     -> 201 {'id': 3, 'email': 'student@school.example', 'role': 'student'}
 Register with a weak password                        -> 400 {'error': 'Password must be at least 10 characters long; Password must contain at least one letter and one digit'}
 Register the same email again                        -> 409 {'error': 'An account with that email already exists'}
 Register with a SQL injection email                  -> 400 {'error': 'Invalid email address'}
@@ -13,7 +13,7 @@ Instructor publishes the course                      -> 200 {'id': 1, 'title': '
 Student enrols                                       -> 201 {'course_id': 1, 'student_id': 3}
 Student enrols again                                 -> 409 {'error': 'Already enrolled in this course'}
 Student requests the roster                          -> 403 {'error': 'Access denied'}
-Instructor requests the roster                       -> 200 {'students': ['molly@school.example']}
+Instructor requests the roster                       -> 200 {'students': ['student@school.example']}
 Enrol with a malicious course id                     -> 400 {'error': 'Course id must be a whole number'}
 Use a forged token                                   -> 401 {'error': 'Invalid or expired session'}
 

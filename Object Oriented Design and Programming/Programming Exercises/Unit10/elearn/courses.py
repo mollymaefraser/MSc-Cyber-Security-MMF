@@ -5,7 +5,7 @@ from typing import Optional
 
 from .audit import AuditLog
 from .database import Database
-from .errors import AuthorizationError, NotFoundError, ValidationError
+from .errors import AuthorisationError, NotFoundError, ValidationError
 from .security import require_role
 from .users import Role, User
 
@@ -84,7 +84,7 @@ class CourseService:
         if course is None:
             raise NotFoundError("Course not found")
         if not self.can_manage(actor, course):
-            raise AuthorizationError("Access denied")
+            raise AuthorisationError("Access denied")
         self._repo.set_published(course_id)
         self._audit.record("course_published", course_id=course_id, actor_id=actor.id)
         return self._repo.get(course_id)

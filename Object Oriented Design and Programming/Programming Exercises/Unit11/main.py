@@ -18,8 +18,8 @@ def container_wiring(channel="email"):
 
 if __name__ == "__main__":
     print("Manual wiring:")
-    manual_wiring().register_user("molly@example.com")
+    manual_wiring().register_user("student@example.com")
     print("\nContainer, channel=email:")
-    container_wiring("email").register_user("molly@example.com")
+    container_wiring("email").register_user("student@example.com")
     print("\nContainer, channel=sms (no change to UserManager):")
     container_wiring("sms").register_user("+44 7700 900123")

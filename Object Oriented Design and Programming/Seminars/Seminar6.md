@@ -121,8 +121,8 @@ if __name__ == "__main__":
 
 **Why this is thread-safe:**
 - The `_balance` attribute is encapsulated (prefixed with `_`) and only ever modified inside `deposit()`/`withdraw()`, never accessed directly from outside the class.
-- Each method wraps its read-modify-write sequence in `with self._lock:`, ensuring mutual exclusion — no two threads can execute the critical section at the same time.
-- The artificial `time.sleep(0.001)` inside the critical section is included deliberately to widen the window where a race condition *would* occur if the lock were removed — useful for demonstrating the problem to students by commenting the lock out and observing an incorrect final balance.
+- Each method wraps its read-modify-write sequence in `with self._lock:`, ensuring mutual exclusion; no two threads can execute the critical section at the same time.
+- The artificial `time.sleep(0.001)` inside the critical section is included deliberately to widen the window where a race condition *would* occur if the lock were removed, useful for demonstrating the problem to students by commenting the lock out and observing an incorrect final balance.
 
 ---
 

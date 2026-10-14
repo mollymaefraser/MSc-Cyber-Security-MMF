@@ -7,7 +7,7 @@ from typing import Callable, Optional
 from .audit import AuditLog
 from .courses import Course, CourseService
 from .database import Database
-from .errors import AuthorizationError, CourseFullError, EnrolmentError, NotFoundError
+from .errors import AuthorisationError, CourseFullError, EnrolmentError, NotFoundError
 from .security import require_role
 from .users import Role, SqliteUserRepository, User
 
@@ -88,6 +88,6 @@ class EnrolmentService:
     def roster(self, actor: User, course_id: int) -> list:
         course = self._courses.get_course(actor, course_id)
         if not self._courses.can_manage(actor, course):
-            raise AuthorizationError("Access denied")
+            raise AuthorisationError("Access denied")
         users = (self._users_repo.get(sid) for sid in self._repo.student_ids_for_course(course_id))
         return sorted(u.email for u in users if u)

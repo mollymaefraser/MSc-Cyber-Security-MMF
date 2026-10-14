@@ -18,7 +18,7 @@ By the end of this seminar, students should be able to:
 
 ## General Overview
 
-This seminar focuses on refactoring and code smells, two critical aspects of maintaining high-quality, readable, and maintainable code. Students will learn how to identify common code smells — indicators of poor design or implementation — and apply refactoring techniques to improve code quality.
+This seminar focuses on refactoring and code smells, two critical aspects of maintaining high-quality, readable, and maintainable code. Students will learn how to identify common code smells (indicators of poor design or implementation) and apply refactoring techniques to improve code quality.
 
 The seminar includes a practical exercise where students refactor an existing codebase to eliminate code smells using object-oriented principles such as encapsulation, abstraction, and modularity.
 
@@ -28,7 +28,7 @@ The seminar includes a practical exercise where students refactor an existing co
 
 ### 1. Introduction to Code Smells
 
-A **code smell** is a surface-level indicator in code that suggests a deeper design problem. Smells aren't bugs — the code still works — but they make software harder to read, test, and change, and they increase technical debt over time as small issues compound across a growing codebase.
+A **code smell** is a surface-level indicator in code that suggests a deeper design problem. Smells aren't bugs (the code still works) but they make software harder to read, test, and change, and they increase technical debt over time as small issues compound across a growing codebase.
 
 | Code Smell | Description |
 |---|---|
@@ -40,7 +40,7 @@ A **code smell** is a surface-level indicator in code that suggests a deeper des
 
 ### 2. Refactoring Techniques
 
-**Refactoring** is the process of improving the internal structure of code without changing its external behaviour — the same inputs should always produce the same outputs before and after.
+**Refactoring** is the process of improving the internal structure of code without changing its external behaviour; the same inputs should always produce the same outputs before and after.
 
 | Technique | What It Does |
 |---|---|
@@ -52,7 +52,7 @@ A **code smell** is a surface-level indicator in code that suggests a deeper des
 
 ### 3. Practical Exercise: Refactoring a Customer Management System
 
-**Before refactoring** — a class showing Long Method, Duplicate Code, and Primitive Obsession:
+**Before refactoring**: a class showing Long Method, Duplicate Code, and Primitive Obsession:
 
 ```python
 class CustomerManager:
@@ -86,7 +86,7 @@ class CustomerManager:
         print(f"{name} | {email} | {phone} | {formatted_address}")
 ```
 
-**After refactoring** — applying Extract Class (for `Address`), Introduce Parameter Object, and Remove Duplicate Code:
+**After refactoring**: applying Extract Class (for `Address`), Introduce Parameter Object, and Remove Duplicate Code:
 
 ```python
 class Address:
@@ -138,7 +138,7 @@ class CustomerManager:
 - **Introduce Parameter Object:** `Customer` groups `name`, `email`, `phone`, and `address` into a single cohesive object, so methods take one parameter instead of six.
 - **Remove Duplicate Code:** validation logic lives once, inside `Customer`, instead of being copied into every method that needs it.
 - **Extract Method:** validation is broken into small, named methods (`_validate_email`, `_validate_phone`) rather than being inlined repeatedly.
-- `CustomerManager` is now smaller and more focused — it manages a collection of customers, while `Customer` is responsible for its own validity and presentation.
+- `CustomerManager` is now smaller and more focused; it manages a collection of customers, while `Customer` is responsible for its own validity and presentation.
 
 ---
 

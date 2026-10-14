@@ -7,7 +7,7 @@ validates the shape of raw input, delegates, and maps every failure to a safe re
 from dataclasses import dataclass
 from typing import Callable
 
-from .errors import (AuthenticationError, AuthorizationError, CourseFullError, DuplicateEmailError,
+from .errors import (AuthenticationError, AuthorisationError, CourseFullError, DuplicateEmailError,
                      EnrolmentError, NotFoundError, TooManyAttemptsError, ValidationError)
 
 
@@ -20,7 +20,7 @@ class Response:
 _STATUS_FOR_ERROR = (
     (ValidationError, 400),
     (AuthenticationError, 401),
-    (AuthorizationError, 403),
+    (AuthorisationError, 403),
     (NotFoundError, 404),
     (DuplicateEmailError, 409),
     (CourseFullError, 409),
